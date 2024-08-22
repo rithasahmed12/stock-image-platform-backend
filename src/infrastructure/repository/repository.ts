@@ -1,6 +1,6 @@
 import User from "../../domain/user";
 import UserModel from "../database/userModel";
-import Repo from "../../useCase/interface/repo";
+import Repo from "../../useCase/interface/Irepo";
 
 class Repository implements Repo {
 
@@ -13,6 +13,11 @@ class Repository implements Repo {
  async findByEmail(email: string): Promise<User | null> {
     const userData = await UserModel.findOne({ email: email });
     return userData;
+  }
+
+  async findByNumber(phone: number): Promise<User | null> {
+     const userData = await UserModel.findOne({phone:phone});
+     return userData;
   }
   
 }

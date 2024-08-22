@@ -7,6 +7,11 @@ const userSchema:Schema = new Schema<User|Document>({
         required:true,
         unique:true
     },
+    phone:{
+        type:Number,
+        unique:true,
+        required:true
+    },
     password:{
         type:String,
         required:true
