@@ -15,7 +15,7 @@ interface UseCaseInterface {
 
     verifyUser(body:User): Promise<LoginResponse>; 
 
-    execute(files: Express.Multer.File[], titles: string[]): Promise<IImageData[]>;
+    execute(files: Express.Multer.File[], titles: string[],id:string): Promise<IImageData[]>;
 }
 
 export default UseCaseInterface;

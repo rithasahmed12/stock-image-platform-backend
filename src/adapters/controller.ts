@@ -62,6 +62,7 @@ class Controller implements ControllerInterface {
     try {
       const files = req.files as Express.Multer.File[];
       const titles = req.body.titles as string[];
+      const id = req.body.id;
       
       if (!files || files.length === 0) {
         res.status(400).json({ error: 'No files uploaded' });
@@ -73,7 +74,7 @@ class Controller implements ControllerInterface {
         return;
       }
 
-      const uploadedImages = await this._useCase.execute(files, titles);
+      const uploadedImages = await this._useCase.execute(files, titles,id);
       
       res.status(200).json({ 
         message: 'Images uploaded successfully', 
@@ -106,7 +107,8 @@ class Controller implements ControllerInterface {
 
   async getImages(req: Request, res: Response): Promise<void> {
     try {
-      const images: ImageContainer[] = await this._useCase.getImages();
+      const { id } = req.params;
+      const images: ImageContainer[] = await this._useCase.getImages(id);
       res.status(200).json(images);
     } catch (error) {
       if (error instanceof Error) {

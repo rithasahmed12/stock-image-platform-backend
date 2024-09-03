@@ -11,6 +11,10 @@ const ImageContainerSchema = new Schema<ImageContainer>({
     type: String,
     required: true
   },
+  id:{
+    type:String,
+    required:true
+  },
   order: {
     type: Number,
     default: 0

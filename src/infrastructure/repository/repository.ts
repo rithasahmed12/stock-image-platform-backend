@@ -28,8 +28,8 @@ class Repository implements Repo {
      return userData;
   }
 
-  async getImages(): Promise<ImageContainer[]> {
-   return await ImageContainerModel.find().sort({ updatedAt:-1});
+  async getImages(id:string): Promise<ImageContainer[]> {
+   return await ImageContainerModel.find({id:id}).sort({ updatedAt:-1});
  }
   
   async saveImages(imageData: IImageData[]): Promise<void> {

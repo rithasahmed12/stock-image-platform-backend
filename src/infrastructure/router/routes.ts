@@ -28,7 +28,7 @@ const route = express.Router();
 route.post('/signup',(req,res,next)=>controller.signUp(req,res,next));
 route.post('/login',(req,res,next)=>controller.login(req,res,next));
 
-route.get('/images', authenticateToken, (req: Request, res: Response) => controller.getImages(req, res));
+route.get('/images/:id', authenticateToken, (req: Request, res: Response) => controller.getImages(req, res));
 route.post('/upload', authenticateToken, upload.array('images'), (req: Request, res: Response, next: NextFunction) => controller.handle(req, res, next));
 route.put('/images/:id', authenticateToken, upload.single('image'), (req: Request, res: Response) => controller.updateImage(req, res));
 route.delete('/images/:id', authenticateToken, upload.single('image'), (req: Request, res: Response) => controller.deleteImage(req, res));

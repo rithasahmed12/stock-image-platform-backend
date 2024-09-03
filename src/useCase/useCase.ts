@@ -106,7 +106,7 @@ class UseCase implements UseCaseInterface {
     };
   }
 
-  async execute(files: Express.Multer.File[], titles: string[]): Promise<IImageData[]> {
+  async execute(files: Express.Multer.File[], titles: string[],id:string): Promise<IImageData[]> {
     if (files.length !== titles.length) {
       throw new Error('Number of files and titles do not match');
     }
@@ -116,6 +116,7 @@ class UseCase implements UseCaseInterface {
     console.log('uploadedKeys:', uploadedKeys);
     
     const imageData: IImageData[] = uploadedKeys.map((key, index) => ({
+      id:id,
       imageUrl: key,
       title: titles[index]
     }));
@@ -124,8 +125,8 @@ class UseCase implements UseCaseInterface {
     return imageData;
   }
 
-  async getImages(): Promise<ImageContainer[]> {
-    const images = await this._Repository.getImages();
+  async getImages(id:string): Promise<ImageContainer[]> {
+    const images = await this._Repository.getImages(id);
     // Generate signed URLs for each image
     for (let image of images) {
       image.imageUrl = await this._s3Bucket.getSignedImageUrl(image.imageUrl);
